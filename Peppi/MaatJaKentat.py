@@ -40,9 +40,9 @@ def kentatMaasta(maa):
 yhteys = mysql.connector.connect(
     host='127.0.0.1',
     port=3306,
-    database='lentopeli',
-    user='nahal1',
-    password='Umerasif1',
+    database='flight_game',
+    user='Peppi10',
+    password='123456',
     autocommit=True
 )
 if __name__ == '__main__':
