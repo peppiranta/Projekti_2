@@ -2,9 +2,112 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title> Seven wonders</title>
+     <link rel="stylesheet" type="text/css" href="testi.css">
+    <script src="main.js" defer></script>
+    <script src="säännöt.html" defer></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <p id="a"></p>
 </head>
+<header></header>
 <body>
 
+<div class="cotnainer"></div>
+<header class="page-header">
+<h1 class="page-title"><ion-icon name="globe-outline"></ion-icon> The seven wonders <ion-icon name="globe-outline"></ion-icon></h1>
+<nav>
+    <ul class="flex-wrap space-evenly">
+        <li>
+            <a class="button button-white" href="peli.html">Peli</a>
+        </li>
+        <li>
+            <a class="button button-white" href="säännöt.html">Säännöt</a>
+        </li>
+    </ul>
+</nav>
+</header>
+<main>
+        <div id="map">
+            <img class="responsive-image" src="victoria.jpeg" alt="Kartta Helsingistä">
+        </div>
+        <div class="boxes">
+            <section class ="box">
+                <header>
+                    <h2>Pelitilanne</h2>
+                </header>
+                <table border="1">
+                    <tr>
+                        <td colspan="2">Pelaajan nimi</td>
+                    </tr>
+                    <tr>
+                        <td>Käytetyt co2-päästöt: <span id="consumed">0</span> kg</td>
+                        <td>CO2-budjetti: <span id="consumed">10 000</span> kg</td>
+                    </tr>
+                </table>
+            </section>
+            <section class="box">
+                <header>
+                    <h2 id="lentokentän-nimi">Nykyinen sijainti</h2>
+                </header>
+            </section>
+
+            <section class ="box">
+                             <header>
+                    <h2>Matkamuistot</h2>
+                </header>
+                <ul id="goals">
+                    <li>
+                        <figure>
+                            <img src="https://icons.iconarchive.com/icons/cute-little-factory/womens/256/bracelet-icon.png" width="30" height="30">
+                            <figcaption>Puinen käsikoru</figcaption>
+                        </figure>
+                    </li>
+                    <li>
+                        <figure>
+                            <img src="https://icons.iconarchive.com/icons/iconshock/stroke-animals/256/elephant-icon.png" width="30" height="30">
+                            <figcaption>Norsu patsas</figcaption>
+                        </figure>
+                    </li>
+                    <li>
+                        <figure>
+                            <img src="https://icons.iconarchive.com/icons/microsoft/fluentui-emoji-3d/256/Boomerang-3d-icon.png" width="30" height="30">
+                            <figcaption>Boomerang</figcaption>
+                        </figure>
+                    </li>
+                    <li>
+                        <figure>
+                            <img src="https://icons.iconarchive.com/icons/iconshock/christmas/256/reindeer-icon.png" width="30" height="30">
+                            <figcaption>Poro avaimenperä</figcaption>
+                        </figure>
+                    </li>
+                     <li>
+                        <figure>
+                            <ion-icon name="hand-left-outline"></ion-icon>
+                            <figcaption>Colosseum patsas</figcaption>
+                        </figure>
+                    </li>
+                     <li>
+                        <figure>
+                            <img src="https://icons.iconarchive.com/icons/icons-land/medical/256/Body-Skull-icon.png" width="30" height="30">
+                            <figcaption>Pääkallo koriste-esine</figcaption>
+                        </figure>
+                    </li>
+                     <li>
+                        <figure>
+                            <img src="https://icons.iconarchive.com/icons/iconshock/world-places/256/christ-the-redeemer-icon.png" width="30" height="30">
+                            <figcaption>Christ the redeemer-patsas</figcaption>
+                        </figure>
+                    </li>
+                </ul>
+            <table>
+                <tr>
+                </tr>
+            </table>
+            </section>
+
+        </div>
+</main>
+</div>
 </body>
 </html>
