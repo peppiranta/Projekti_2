@@ -20,17 +20,39 @@
 
 }
 
-.button.white{
+.button-white{
     background-color: var(--white);
     color: var(--black);
 }
 
+.flex-wrap{
+    display: flex;
+    flex-wrap: wrap;
+
+
+}
+
+.space-evenly {
+    justify-content: space-evenly;
+}
+
+.responsive-image {
+    width: 100%;
+    height: auto;
+
+}
 
 /*   app specific */
 html, body {
     margin:0 ;
     padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: var(--white);
 
+}
+.container{
+    width: 70%;
+    margin: auto;
 
 }
 
@@ -39,6 +61,7 @@ html, body {
 .page-header , .page-footer{
     background-color: var(--black);
     color: var(--white);
+    padding: 1rem ;
 
 }
 
