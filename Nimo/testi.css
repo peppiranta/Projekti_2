@@ -51,9 +51,7 @@ html, body {
 
 }
 .container{
-    width: 70%;
-    margin: auto;
-
+    width: 100%;
 }
 
 
@@ -80,3 +78,44 @@ ul {
     padding: 0;
 
 }
+
+#map{
+    width: 100%;
+}
+
+.boxes {
+    width: 100%;
+}
+.box {
+    padding: 1rem ;
+    font-size: x-small;
+}
+
+#map, .box{
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.3) 3px 3px 10px;
+    margin-bottom:  1rem;
+}
+
+.box h2 {
+    margin: 0;
+
+}
+.box table {
+    width: 100%;
+    text-align: center;
+    border: var(--grey) solid 1px;
+    border-radius: 4px;
+
+
+}
+.box li {
+    width:  50%;
+    text-align: center;
+    border: var(--grey) solid 1px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+
