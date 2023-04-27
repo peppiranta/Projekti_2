@@ -20,6 +20,7 @@
     left: 50%;
     transform: translate(-50%,-50%);
     background: #fff;
+    color: #A7D0D9;
     padding: 50px 60px 70px;
     text-align: center;
 }
@@ -42,6 +43,7 @@
 }
 .input-field{
     background: #F0FFFF;
+    color: #7393B3;
     margin: 5px 0;
     border-radius: 3px;
     display: flex;
@@ -67,7 +69,7 @@ input{
     justify-content: space-between;
 }
 .btn-field button{
-    margin-top: 10px;
+    margin-top: 15px;
     flex-basis: 48%;
     background: #ADD8E6;
     color: #7393B3;
