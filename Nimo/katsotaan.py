@@ -6,15 +6,16 @@ import json
 yhteys = mysql.connector.connect(
          host='127.0.0.1',
          port= 3306,
-         database='sevenwonders',
-         user='hanna',
-         password='nimohanna',
+         database='the_wonders',
+         user='nahal1',
+         password='Umerasif1',
          autocommit=True
          )
 app = Flask(__name__)
 
 def player_name(nimi):
     id_funktio = str(register())
+    nimi = nimi
     sql = "insert into game(id, screen_name, location, co2_budget, co2_consumed) "
     sql += "values('" + id_funktio + "' , '" + nimi + "' , '" + "EFHK" + "' , '" + "10000" + "' , '" + "0" + "');"
     #print(sql)

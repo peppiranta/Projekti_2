@@ -14,7 +14,7 @@
             <div class="input-group"></div>
             <div class="input-field" id="nameField"></div>
             <i class="fa-regular fa-user"></i>
-                <input type="text" placeholder="Name">
+                <input type="text" placeholder="Name" id="PLAYERNem">
 
             <div class="btn-field">
                 <button class="button" id="loginBtn" class="disable">Login</button>
@@ -26,17 +26,20 @@
 
 <script>
 
-    let signupBtn = document.getElementById("signupBtn");
     let loginBtn = document.getElementById("loginBtn");
-    let nameField = document.getElementById("nameField");
-    let title = document.getElementById("title");
+
 
 loginBtn.onclick = function () {
-    nameField.style.maxHeight = "0";
-        title.innerHTML = "Login";
-        signupBtn.classList.add("disable");
-        loginBtn.classList.remove("disable");
+    async function register(nimi){
+        const response = await fetch('http://127.0.0.1:5000/register/muath6');
+        console.log('response',response)
+        const data = await response.json()
+        return data
 }
+}
+
+
+
 signupBtn.onclick = function () {
     nameField.style.maxHeight = "60px";
         title.innerHTML = "Sign up";

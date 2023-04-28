@@ -79,6 +79,10 @@ ul {
 
 }
 
+main {
+    padding: 1rem 2rem;
+}
+
 #map{
     width: 100%;
 }
@@ -110,11 +114,14 @@ ul {
 
 }
 .box li {
-    width:  50%;
+    width:  calc(50% - 0.6rem);
     text-align: center;
     border: var(--grey) solid 1px;
     border-radius: 4px;
     box-sizing: border-box;
+    padding: 0.3rem;
+    margin: 0.3rem;
+
 }
 
 
