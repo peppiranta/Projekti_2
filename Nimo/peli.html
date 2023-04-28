@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title> Seven wonders</title>
-     <link rel="stylesheet" type="text/css" href="testi.css">
+     <link rel="stylesheet" type="text/css" href="kokeilu.css">
     <script src="main.js" defer></script>
     <script src="säännöt.html" defer></script>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <p id="a"></p>
 </head>
 <header></header>
@@ -36,13 +34,15 @@
                 <header>
                     <h2>Pelitilanne</h2>
                 </header>
-                <table border="1">
+                <table>
                     <tr>
-                        <td colspan="2">Pelaajan nimi</td>
+                        <td colspan="2">
+                            <h3 id="player-name"> Pelaajan nimi</h3>
+                        </td>
                     </tr>
                     <tr>
                         <td>Käytetyt co2-päästöt: <span id="consumed">0</span> kg</td>
-                        <td>CO2-budjetti: <span id="consumed">10 000</span> kg</td>
+                        <td>CO2-budjetti: <span id="budget">10 000</span> kg</td>
                     </tr>
                 </table>
             </section>
@@ -83,7 +83,7 @@
                     </li>
                      <li>
                         <figure>
-                            <ion-icon name="hand-left-outline"></ion-icon>
+                            <img src="https://icons.iconarchive.com/icons/iconka/places-of-interest/256/colosseum-icon.png" width="30" height="30">
                             <figcaption>Colosseum patsas</figcaption>
                         </figure>
                     </li>
