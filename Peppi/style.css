@@ -1,7 +1,7 @@
 *{
     margin: 0;
     padding: 0;
-    font-family: "Roboto Light", sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     box-sizing: border-box;
 }
 .container{
@@ -87,17 +87,3 @@ input{
     background: #ADD8E6;
     color: #7393B3;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
