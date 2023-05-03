@@ -1,20 +1,45 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    box-sizing: border-box;
+nav{
+    height: auto;
+    padding: 25px;
+    border: 1px solid black;
+    display: flex;
+    gap: 2vw;
 }
+nav div{
+    flex: 1;
+}
+#napdiv{
+
+    text-align: center;
+}
+#napdiv a{
+    background-color: rgb(255, 99, 99);
+    padding: 3px;
+    color: white;
+    width: 10vw;
+    margin-left: 8vw;
+    cursor: pointer;
+    font-size: 3vw;
+    text-decoration: none;
+}
+nav h1 {
+    font-size: 3.5vw;
+
+}
+
+
 .container{
     width: 100%;
-    height: 100vh;
+    height: 112vh;
     background-image: url("https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2t5fGVufDB8fDB8fA%3D%3D&w=1000&q=80");
     background-position: center;
     background-size: cover;
     position: relative;
+    margin: -8px;
 }
 .form-box{
     position: absolute;
-    top: 50%;
+    top: 500px;
     left: 50%;
     transform: translate(-50%,-50%);
     background: #A4C6EB;
