@@ -85,3 +85,35 @@ nav h1{
     padding: 20px 0 0 0 ;
     background: #A4C6EB;
 }
+
+.btn-field {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.btn-field button{
+    margin-top: 15px;
+    flex-basis: 48%;
+    background: #ADD8E6;
+    color: #7393B3;
+    height: 40px;
+    border-radius: 40px;
+    border: 5px;
+    outline: 5px;
+    cursor: pointer;
+    transition: background 1s;
+}
+
+.btn-field button.disable{
+    background: #ADD8E6;
+    color: #7393B3;
+}
+
+.page-header , .page-footer{
+    background-color: var(--black);
+    color: var(--white);
+    padding: 1rem ;
+
+}
