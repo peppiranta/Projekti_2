@@ -46,14 +46,16 @@ nav h1{
     justify-content: center;
 }
 #middle{
-    width:60vw;
-    border: 1px solid black;
+
     height: 95%;
     padding: 10px;
 }
+
+#maponly{
+    width: 100%;
+}
 #map{
     width: 100%;
-    border: 1px solid black;
     height: 60%;
 }
 #miniotsikko{
