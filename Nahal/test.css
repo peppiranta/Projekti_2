@@ -1,0 +1,28 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#countryName {
+  margin-top: 20px;
+}
+
+#souvenirs {
+  margin-top: 20px;
+}
+
+#emissions {
+  margin-top: 20px;
+}

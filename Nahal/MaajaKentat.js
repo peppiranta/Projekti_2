@@ -1,153 +1,144 @@
 'use strict';
+/* 1. show map using Leaflet library. (L comes from the Leaflet library) */
 
-/*
-  Ongelmakenttä:
+const map = L.map('map', { tap: false });
+L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+  maxZoom: 20,
+  subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+}).addTo(map);
+map.setView([60, 24], 7);
 
-  Synkroninen funktiokutsu (normaali): Suoritetaan ohjemaan rivi riviltä, törmätään fuktiokutsuun.
-  Käydään suorittamassa funktio ja vasta kun se on suoritettu kokonaan jatketaan rivi riviltä etenemistä.
+// global variables
+const apiUrl = 'http://127.0.0.1:5000/';
+const startLoc = 'EFHK';
+const globalGoals = [];
+const airportMarkers = L.featureGroup().addTo(map);
 
-  Asynkroninen funktiokutsu (tässä, suositeltu javascriptissä): suoritetaan ohjelmaa rivi riviltä, törmätään funktiokutsuun.
-  Lähdetään suorittamaan funktiota,
-  mutta ei odotetakaan funktion suoritusta loppuun vaan samaan aikaan jatketaan kutsuvan ohjelman osan rivien etenemistä
+// icons
+const blueIcon = L.divIcon({ className: 'blue-icon' });
+const greenIcon = L.divIcon({ className: 'green-icon' });
 
-  Asynkronisella kutsulla vältetään sivun jääminen jumiin mutta samaan aikaan se hankaloittaa meidän koodaamista.
+// form for player name
+document.querySelector('#player-form').addEventListener('submit', function (evt) {
+  evt.preventDefault();
+  const playerName = document.querySelector('#player-input').value;
+  document.querySelector('#player-modal').classList.add('hide');
+  gameSetup(`${apiUrl}newgame?player=${playerName}&loc=${startLoc}`);
+});
 
-  Fetch on javascriptin kurssilla aikaisemmin esitellyn REST rajapinnan GET.
-  Eli suorittaa back endin määrittelemän end point kutsun. (Meillä tässä maat, näkyy urlin lopussa)
+// function to fetch data from API
+async function getData(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error('Invalid server input!');
+  const data = await response.json();
+  return data;
+}
 
-  Ja emme voi sille mitään, että fetch on asynkroninen.
+// function to update game status
+function updateStatus(status) {
+  document.querySelector('#player-name').innerHTML = `Player: ${status.name}`;
+  document.querySelector('#consumed').innerHTML = status.co2.consumed;
+  document.querySelector('#budget').innerHTML = status.co2.budget;
+}
 
-  Usein kuitenkin se on meille olennaista, että jatkamme vasta kun kutsu on suoritettu kokonaan.
-  Tässä esimerkissä olisi aika hölmöä, että nettisivun vetolaatikkoon generoituisi ensin muutama maa ja
-  käyttäjän voisi painaa hae nappia kesken kaiken. Sen sijaan haluamme, että vetolaatikkoon tulee kerralla kaikki maailman maat.
+// function to show weather at selected airport
+function showWeather(airport) {
+  document.querySelector('#airport-name').innerHTML = `Weather at ${airport.name}`;
+  document.querySelector('#airport-temp').innerHTML = `${airport.weather.temp}°C`;
+  document.querySelector('#weather-icon').src = airport.weather.icon;
+  document.querySelector('#airport-conditions').innerHTML = airport.weather.description;
+  document.querySelector('#airport-wind').innerHTML = `${airport.weather.wind.speed}m/s`;
+}
 
-  Joten haluamme pakottaa fetch kutsun olemaan synkroninen. Tähän on Ilen materiaalissa kaksi tapaa:
+// function to check if any goals have been reached
+function checkGoals(meets_goals) {
+  if (meets_goals.length > 0) {
+    for (let goal of meets_goals) {
+      if (!globalGoals.includes(goal)) {
+        document.querySelector('.goal').classList.remove('hide');
+        location.href = '#goals';
+      }
+    }
+  }
+}
 
-  1) await
-  2) then
+// function to update goal data and goal table in UI
+function updateGoals(goals) {
+  document.querySelector('#goals').innerHTML = '';
+  for (let goal of goals) {
+    const li = document.createElement('li');
+    const figure = document.createElement('figure');
+    const img = document.createElement('img');
+    const figcaption = document.createElement('figcaption');
+    img.src = goal.icon;
+    img.alt = `goal name: ${goal.name}`;
+    figcaption.innerHTML = goal.description;
+    figure.append(img);
+    figure.append(figcaption);
+    li.append(figure);
+    if (goal.reached) {
+      li.classList.add('done');
+      globalGoals.includes(goal.goalid) || globalGoals.push(goal.goalid);
+    }
+    document.querySelector('#goals').append(li);
+  }
+}
 
-  Kysyin teollisuudessa developerina toimilta parilta kaverilta. Heillä molemmilla lievä preferenssi then
-  mutta sanouvat olevan pitkälti makuasuia. ChatGPT sanoo myös valinnan olevan makuasia.
-  Jätän then koodin kommenttina loppuun mutta keskitymme Ilen materiaaleissa vahvemmin esiin tuotuun await-tapaan.
+// function to check if game is over
+function checkGameOver(budget) {
+  if (budget <= 0) {
+    alert(`Game Over. ${globalGoals.length} goals reached.`);
+    return false;
+  }
+  return true;
+}
 
-  1) await
-
-  Elämämme ei kuitenkaan ole vielä fetchin synkroniseksi pakottamisen jälkeenkään simppeliä koska
-  await komentoa ei saa käyttää kuin asynkronisessa funktiossa. Meillä tässä haeMaat().
-
-  Koska haeMaat() on asynkroninen (vaikka sen sisällä itse fecth() onkin pakotettu asynkroniseksi) emme voi tehdä siten,
-  että meillä olisi taytaVetolaatikko() funktio joka kutsuisi haeMaat()-funktiota ja saisi siltä jsonina maailman maat.
-
-  Koska asynkronisesta haeMaat() funktiosta voidaan hypätä pois ja takaisin, voimme havaita,
-  että edestakaisin hyppivään asynkroniseen funktioon emme voi kirjoittaa return-lausetta paluuarvolle.
-  Meillä tassä maailman maat sisältävää jsonia.
-
-  Joten emme pysty kirjoittamaan taytaVetolaakikko()-funktioon kutsua asynkroniseen haeMaat() funktioon
-  hyödyntäen sen paluuarvoa.
-
-  Joten meille jää jäljelle vain vaihtoehto, että kirjoitamme asynkronisen haeMaat() funktioon kutsun
-  taytaVetolaatikko()-funktioon. Synkroniseksi pakotetun fecth rivin jälkeen tiedämme että meillä on kaikki maailman maat
-  json olemassa kokonaisena. Ja sen voimme antaa parametrina taytaVetolaatikko() funktiolle.
-
-  2) then
-
-  Nyt tulee vääjäämättä mieleen, että teemme synkronisen haeMaat() funktion ja voimme ihan rauhassa kutsua
-  teeVetolaatikko()-funktiosta paluuarvon palauttavaa haeMaat() funktiota. Mutta emme voi koska then jää odottamaan
-  responcea eli ratkaisussa syntyy call back pino...
-
-  Joka tapauksessa nyt keskitymme versioon 1) await
-
- */
-
-// 1) await
-async function haeMaat() {
-
+// function to set up game
+// this is the main function that creates the game and calls the other functions
+async function gameSetup(url) {
   try {
-    // fetch on se meidän puhuma REST-rajapinnan GET
-    // maat urlin päässä on se meidän Python Flaskissa määrittämä end point
-    const vastaus = await fetch('http://localhost:3000/maat');
-
-    // vastaus sisältää muutakin kuin meidän end pointin palauttaman jsonin. Se sisältää mm. http tilakoodin
-    // ja siksi se json pitää vielä erikseen pyytää vastaukselta
-    const jsonMaat = await vastaus.json();
-
-    taytaVetolaatikko(jsonMaat);
+    document.querySelector('.goal').classList.add('hide');
+    airportMarkers.clearLayers();
+    const gameData = await getData(url);
+    console.log(gameData);
+    updateStatus(gameData.status);
+    if (!checkGameOver(gameData.status.co2.budget)) return;
+    for (let airport of gameData.location) {
+      const marker = L.marker([airport.latitude, airport.longitude]).addTo(map);
+      airportMarkers.addLayer(marker);
+      if (airport.active) {
+        map.flyTo([airport.latitude, airport.longitude], 10);
+        showWeather(airport);
+        checkGoals(airport.weather.meets_goals);
+        marker.bindPopup(`You are here: <b>${airport.name}</b>`);
+        marker.openPopup();
+        marker.setIcon(greenIcon);
+      } else {
+        marker.setIcon(blueIcon);
+        const popupContent = document.createElement('div');
+        const h4 = document.createElement('h4');
+        h4.innerHTML = airport.name;
+        popupContent.append(h4);
+        const goButton = document.createElement('button');
+        goButton.classList.add('button');
+        goButton.innerHTML = 'Fly here';
+        popupContent.append(goButton);
+        const p = document.createElement('p');
+        p.innerHTML = `Distance ${airport.distance}km`;
+        popupContent.append(p);
+        marker.bindPopup(popupContent);
+        goButton.addEventListener('click', function () {
+          gameSetup(`${apiUrl}flyto?game=${gameData.status.id}&dest=${airport.ident}&consumption=${airport.co2_consumption}`);
+        });
+      }
+    }
+    updateGoals(gameData.goals);
   } catch (error) {
-    console.log(error.message);
-  } finally {
-    console.log('asynchronous load complete');
+    console.log(error);
   }
 }
 
-// 2) then (Johon emme keskity nyt kurssilla, on tässä mukana sivistykseksi, koska on myös suosiossa teollisuudessa)
-/*
-function haeMaat() {
-
-  fetch('http://localhost:3000/maat').then((vastaus) => {
-    return vastaus.json();
-  }).then((jsonMaat) => {
-
-    // Tässä kohtaa json näpeissä
-    taytaVetolaatikko(jsonMaat);
-  });
-};*/
-
-function taytaVetolaatikko(jsonMaat) {
-  // Generoidaan HTML-merkkijono jossa select tagi ja option tagi
-  let htmlvetolaatikko = '<select>';
-  for (let i = 0; i < jsonMaat.length; i++) {
-    let maa = jsonMaat[i];
-    htmlvetolaatikko = htmlvetolaatikko + '<option>' + maa + '</option>';
-  }
-  htmlvetolaatikko = htmlvetolaatikko + '</select>';
-
-  //Lisätään äsken generoitu html-koodia sisältävä merkkijono html pohjassa olevan select tagin tilalle
-  document.getElementById('maat').innerHTML = htmlvetolaatikko;
-}
-
-function taytaLista(jsonKentat) {
-
-  // Generoidaan HTML-merkkijono jossa select ul ja li tagi
-  let htmlLista = '<ul>';
-  for (let i = 0; i < jsonKentat.length; i++) {
-    let kentta = jsonKentat[i];
-    htmlLista = htmlLista + '<li>' + kentta + '</li>';
-  }
-  htmlLista = htmlLista + '</ul>';
-
-  //Lisätään äsken generoitu html-koodia sisältävä merkkijono html pohjassa olevan select tagin tilalle
-  document.getElementById('kentat').innerHTML = htmlLista;
-}
-
-async function haeNappi() {
-  console.log('hae nappi toimii');
-
-  // Meidän pitää selvittää käyttäjän valitsema maa vetolaatikosta
-  let vetolaatikko = document.getElementById('maat');
-  let maa = vetolaatikko.options[vetolaatikko.selectedIndex].text;
-
-  // kutsutaan back endin end pointtia, samat edellä selitetyt await kujeet
-  try {
-    // fetch on se meidän puhuma REST-rajapinnan GET
-    // maat urlin päässä on se meidän Python Flaskissa määrittämä end point
-    const vastaus = await fetch('http://localhost:3000/kentatMaasta/' + maa);
-
-    // vastaus sisältää muutakin kuin meidän end pointin palauttaman jsonin. Se sisältää mm. http tilakoodin
-    // ja siksi se json pitää vielä erikseen pyytää vastaukselta
-    const jsonKentat = await vastaus.json();
-
-    taytaLista(jsonKentat);
-  } catch (error) {
-    console.log(error.message);
-  } finally {
-    console.log('asynchronous load complete');
-  }
-}
-
-// Pääohjelma ensimmäinen rivi
-
-//Täyttää vetolaatikon
-haeMaat();
-
-//Lisää kuuntelijan hae-napille. Kuuntelija suorittaa haeNappi() funktion
-document.querySelector('#hae').addEventListener('click', haeNappi);
+// event listener to hide goal splash
+document.querySelector('.goal').addEventListener('click', function (evt) {
+  evt.currentTarget.classList.add('hide');
+});

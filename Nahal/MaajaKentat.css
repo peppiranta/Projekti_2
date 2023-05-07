@@ -1,9 +1,128 @@
-/*väripaletin valinta: https://color.adobe.com/create/image*/
-/*#D96C89
-#88A2F2
-#A7D0D9
-#C0D9B4
-#D9965B*/
-body {
-    background-color: #A7D0D9;
+/*  variables */
+
+:root {
+    --black: rgb(23, 23, 23);
+    --white: rgb(248, 246, 246 );
+    --grey:  rgb(128, 128, 128);
+    --dark-grey: rgb(57, 57, 57);
+
+
 }
+
+
+/* utilites */
+.button {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+
+}
+
+.button-white{
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.flex-wrap{
+    display: flex;
+    flex-wrap: wrap;
+
+
+}
+
+.space-evenly {
+    justify-content: space-evenly;
+}
+
+.responsive-image {
+    width: 100%;
+    height: auto;
+
+}
+
+/*   app specific */
+html, body {
+    margin:0 ;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: var(--white);
+
+}
+.container{
+    width: 100%;
+}
+
+
+
+.page-header , .page-footer{
+    background-color: var(--black);
+    color: var(--white);
+    padding: 1rem ;
+
+}
+
+.page-title {
+    margin: 0;
+    text-align: center;
+}
+
+ion-icon {
+    vertical-align: middle;
+
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+
+}
+
+main {
+    padding: 1rem 2rem;
+}
+
+#map{
+    width: 100%;
+}
+
+.boxes {
+    width: 100%;
+}
+.box {
+    padding: 1rem ;
+    font-size: x-small;
+}
+
+#map, .box{
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.3) 3px 3px 10px;
+    margin-bottom:  1rem;
+}
+
+.box h2 {
+    margin: 0;
+
+}
+.box table {
+    width: 100%;
+    text-align: center;
+    border: var(--grey) solid 1px;
+    border-radius: 4px;
+
+
+}
+.box li {
+    width:  calc(50% - 0.6rem);
+    text-align: center;
+    border: var(--grey) solid 1px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 0.3rem;
+    margin: 0.3rem;
+
+}
+
+
+

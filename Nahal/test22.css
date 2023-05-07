@@ -1,0 +1,27 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+#game-container {
+  margin-top: 50px;
+}
+
+h1 {
+  color: #337ab7;
+}
+
+#game-message {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+#next-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #337ab7;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

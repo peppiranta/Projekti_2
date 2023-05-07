@@ -4,18 +4,106 @@
     <meta charset="UTF-8">
     <title>Kentat</title>
     <link rel="stylesheet" type="text/css" href="MaaJaKentat.css">
-    <script src="skirptit.js" defer></script>
+    <script src="MaajaKentat.js" defer></script>
     <!-- defer tarkoittaa että skiptejä ajetaan vasta kun koko sivu latautunut-->
 </head>
 <body>
-<h1> Valitse maa ja minä näytän sen maan kaikki kentät</h1>
+<div class="container">
+<nav>
+    <div id="napdiv">
+        <a href="MaajaKentat.html">Peli</a>
+    </div>
+    <div id="otsikko">
+        <h1> The Seven Wonders</h1>
+    </div>
+    <div id="napdiv">
+        <a href="VALMIS_SÄÄNNÖT.html">Säännöt</a>
+    </div>
+</nav>
+<section id="sisältö">
+    <div id="sides">
+        <div>
+            <img src="https://icons.iconarchive.com/icons/cute-little-factory/womens/256/bracelet-icon.png" width="30" height="30">
+           <p>Puinen käsikoru</p>
+        </div>
+        <div>
+            <img src="https://icons.iconarchive.com/icons/iconshock/stroke-animals/256/elephant-icon.png" width="30" height="30">
+            <p>Norsu patsas</p>
+        </div>
+        <div>
+            <img src="https://icons.iconarchive.com/icons/microsoft/fluentui-emoji-3d/256/Boomerang-3d-icon.png" width="30" height="30">
+            <p>Boomerang</p>
+        </div>
+        <div>
+            <img src="https://icons.iconarchive.com/icons/iconka/places-of-interest/256/colosseum-icon.png" width="30" height="30">
+            <p>Colosseum patsas</p>
+        </div>
+        <div>
+            <img src="https://icons.iconarchive.com/icons/icons-land/medical/256/Body-Skull-icon.png" width="30" height="30">
+            <p>Pääkallo koriste-esine</p>
+        </div>
+        <div>
+            <img src="https://icons.iconarchive.com/icons/iconshock/world-places/256/christ-the-redeemer-icon.png" width="30" height="30">
+            <p>Christ the redeemer-patsas</p>
+        </div>
+        <div>
+            <img src="https://icons.iconarchive.com/icons/iconshock/christmas/256/reindeer-icon.png" width="30" height="30">
+            <p>Poro avaimenperä</p>
+        </div>
+    </div>
+    <div id="middle">
+        <div id="map">
+            <p id="maponly"><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d37290865.94009441!2d17.922352849108282!3d55.21730492563668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfi!2sfi!4v1683178167624!5m2!1sfi!2sfi" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></p>
+        </div>
+        <div id="miniotsikko">
+            <h3>Pelitilanne</h3>
+        </div>
+        <div id="score">
+            <table>
+                    <tr>
+                        <td colspan="2">
+                            <h3 id="player-name"> Pelaajan nimi</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Käytetyt co2-päästöt: <span id="consumed">0</span> kg</td>
+                        <td>CO2-budjetti: <span id="budget">10 000</span> kg</td>
+                    </tr>
+            </table>
+        </div>
 
-<select id="maat">
-    <option value="tulossa">Tulossa...</option>
-</select>
-<button id="hae">Hae</button>
-<ul id="kentat">
-    <li value="tulossa">Tulossa...</li>
-</ul>
+    </div>
+    <div id="sides">
+        <div>
+            <img src="https://icons.iconarchive.com/icons/wikipedia/waved-flags/256/Italy-Waved-Flag-icon.png" width="30" height="30">
+            <p>Rooma-Italia</p>
+        </div>
+        <div>
+            <img src="https://icons.iconarchive.com/icons/wikipedia/waved-flags/256/Zambia-Waved-Flag-icon.png" width="30" height="30">
+            <p>Livingstone-Sambia</p>
+        </div>
+        <div>
+            <img src="https://icons.iconarchive.com/icons/wikipedia/waved-flags/256/Brazil-Waved-Flag-icon.png" width="30" height="30">
+            <p>Rio-Brasilia</p>
+        </div>
+        <div>
+            <img src="https://icons.iconarchive.com/icons/wikipedia/waved-flags/256/India-Waved-Flag-icon.png" width="30" height="30">
+            <p>Agra-Intia</p>
+        </div>
+        <div>
+            <img src="https://icons.iconarchive.com/icons/wikipedia/waved-flags/256/Finland-Waved-Flag-icon.png" width="30" height="30">
+            <p>Rovaniemi-Suomi</p>
+        </div>
+        <div>
+            <img src="https://icons.iconarchive.com/icons/wikipedia/waved-flags/256/Mexico-Waved-Flag-icon.png" width="30" height="30">
+            <p>México-Meksiko</p>
+        </div>
+        <div>
+            <img src="https://icons.iconarchive.com/icons/wikipedia/waved-flags/256/Australia-Waved-Flag-icon.png" width="30" height="30">
+            <p>Cains-Australia</p>
+        </div>
+    </div>
+</section>
+</div>
 </body>
 </html>
